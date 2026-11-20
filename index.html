@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congresso do Espírito de Profecia - Perguntas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400&family=Playball&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="./src/styles/main.css">
+</head>
+
+<body class="flex flex-col min-h-screen relative antialiased selection:bg-amber-600 selection:text-white">
+
+    <div
+        class="fixed top-8 left-1/2 -translate-x-1/2 w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] bg-[#d97d36] rounded-full blur-[140px] opacity-35 pointer-events-none z-0 animate-star-glow">
+    </div>
+
+    <header class="w-full relative z-20 px-4 py-3 border-b border-amber-900/30 bg-black/40 backdrop-blur-md">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                <span class="text-xs font-semibold tracking-wider uppercase text-amber-200/80">Congresso de
+                    Profecia</span>
+            </div>
+
+            <button id="adminToggleBtn"
+                class="text-xs font-medium px-3 py-1.5 rounded-lg border border-amber-500/30 text-amber-200 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                    </path>
+                </svg>
+                <span id="adminBtnText">Painel Admin</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-xl mx-auto px-4 pt-6 pb-16 relative z-10 flex flex-col items-center">
+        <div class="text-center w-full mb-8 relative select-none">
+            <div class="w-2 h-2 bg-amber-200 rounded-full mx-auto mb-2 shadow-[0_0_12px_#fff] animate-pulse"></div>
+            <h2 class="font-sans font-bold uppercase tracking-[0.25em] text-xs sm:text-sm text-amber-100/90 mb-1">
+                Congresso do</h2>
+            <div class="relative inline-block w-full">
+                <h1
+                    class="font-sans font-black uppercase text-[2.4rem] sm:text-[3.4rem] text-white leading-tight tracking-tight text-glow-white">
+                    ESPÍRITO<br>
+                    <span class="text-[2rem] sm:text-[2.8rem] -mt-2 block">DE</span>
+                </h1>
+                <div
+                    class="font-script text-6xl sm:text-7xl text-[#f4dbb2] -mt-10 sm:-mt-12 ml-6 sm:ml-12 text-glow-gold relative z-10 transform -rotate-2">
+                    profecia
+                </div>
+            </div>
+            <p class="text-xs text-amber-200/70 mt-1 font-light tracking-wide">Perguntas & Respostas em Tempo Real</p>
+        </div>
+
+        <div id="statusBadge" class="w-full mb-6 glass-card rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <span id="statusDot" class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>
+                <span id="statusText"
+                    class="text-xs sm:text-sm font-semibold text-emerald-300 uppercase tracking-wider">Perguntas
+                    Abertas</span>
+            </div>
+            <span class="text-[11px] text-gray-400 font-mono">Evento Ao Vivo</span>
+        </div>
+
+        <div id="publicSection" class="w-full glass-card rounded-2xl p-6 sm:p-8">
+            <form id="questionForm" class="space-y-5">
+                <div>
+                    <label for="userName" class="block text-xs font-bold text-[#f3d4a6] uppercase tracking-wider mb-2">
+                        Seu Nome <span class="text-gray-400 font-normal">(Opcional)</span>
+                    </label>
+                    <input type="text" id="userName" placeholder="Ex: Maria Santos"
+                        class="glass-input w-full px-4 py-3.5 rounded-xl text-sm placeholder-gray-500">
+                </div>
+
+                <div>
+                    <label for="userQuestion"
+                        class="block text-xs font-bold text-[#f3d4a6] uppercase tracking-wider mb-2">
+                        Sua Pergunta <span class="text-amber-400">*</span>
+                    </label>
+                    <textarea id="userQuestion" rows="4" required
+                        placeholder="Digite aqui sua dúvida sobre as palestras..."
+                        class="glass-input w-full px-4 py-3.5 rounded-xl text-sm resize-none placeholder-gray-500"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                    class="btn-gold w-full py-4 rounded-xl font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2">
+                    <span id="btnLabel">Enviar Pergunta</span>
+                    <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </button>
+            </form>
+
+            <div id="closedNotice" class="hidden text-center py-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                        </path>
+                    </svg>
+                </div>
+                <h4 class="text-base font-bold text-amber-200 mb-1">Envio Encerrado</h4>
+                <p class="text-xs text-gray-300 max-w-xs mx-auto">O recebimento de novas perguntas foi temporariamente
+                    suspenso pela organização do congresso.</p>
+            </div>
+        </div>
+
+        <div id="adminSection" class="hidden w-full space-y-6">
+            <div class="glass-card rounded-2xl p-5 border-amber-500/40">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider">Controle do Evento</h3>
+                        <p class="text-xs text-gray-400">Alterne para permitir ou bloquear perguntas do público em tempo
+                            real.</p>
+                    </div>
+                    <button id="toggleStatusBtn"
+                        class="w-full sm:w-auto px-5 py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border">
+                        <span id="toggleStatusText">Carregando...</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-3">
+                <button id="openQrModalBtn"
+                    class="flex-1 py-3 px-4 glass-card rounded-xl text-xs font-semibold text-amber-200 hover:bg-amber-500/10 transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z">
+                        </path>
+                    </svg>
+                    QR Code Telão
+                </button>
+                <div class="glass-card px-4 py-2.5 rounded-xl text-xs text-amber-100 flex items-center gap-2">
+                    <span class="font-bold text-amber-400 text-sm" id="questionsCount">0</span> Perguntas
+                </div>
+            </div>
+
+            <div class="flex gap-2 text-xs">
+                <button data-filter="all"
+                    class="filter-btn active flex-1 py-2 rounded-lg font-semibold bg-amber-500/30 border border-amber-500/50 text-white">Todas</button>
+                <button data-filter="pending"
+                    class="filter-btn flex-1 py-2 rounded-lg font-semibold glass-card text-gray-300 hover:text-white">Pendentes</button>
+                <button data-filter="answered"
+                    class="filter-btn flex-1 py-2 rounded-lg font-semibold glass-card text-gray-300 hover:text-white">Respondidas</button>
+            </div>
+
+            <div id="questionsList" class="space-y-3">
+                <div class="text-center py-10 text-gray-400 text-xs">Carregando perguntas...</div>
+            </div>
+        </div>
+
+        <div class="w-full mt-8 text-center">
+            <button id="showQrPublicBtn"
+                class="text-xs text-amber-200/80 hover:text-amber-200 underline underline-offset-4 transition-colors">
+                Exibir QR Code para compartilhar com alguém
+            </button>
+        </div>
+    </main>
+
+    <!-- Modais -->
+    <div id="qrModal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/85 backdrop-blur-md px-4">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl max-w-sm w-full text-center border-amber-500/40 relative">
+            <button id="closeQrModalBtn" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
+            <h3 class="text-lg font-bold text-white mb-1">Acesse a Página</h3>
+            <p class="text-xs text-amber-200/80 mb-5">Aponte a câmera do celular para enviar perguntas</p>
+            <div class="bg-white p-4 rounded-xl inline-block mb-5 shadow-2xl" id="qrcodeCanvas"></div>
+            <p class="text-[11px] font-mono text-gray-400 break-all mb-4 px-2" id="qrUrlText"></p>
+            <div class="flex gap-2">
+                <button id="downloadQrBtn"
+                    class="btn-gold flex-1 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider">Baixar
+                    PNG</button>
+                <button id="closeQrModalBtn2"
+                    class="py-2.5 px-4 bg-white/10 hover:bg-white/20 rounded-xl font-semibold text-xs text-white">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminAuthModal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/90 backdrop-blur-md px-4">
+        <div class="glass-card p-6 rounded-2xl max-w-xs w-full text-center border-amber-500/50">
+            <h3 class="text-base font-bold text-amber-300 mb-2">Acesso Restrito Admin</h3>
+            <p class="text-xs text-gray-300 mb-4">Insira a senha do organizador para gerenciar o evento.</p>
+            <input type="password" id="adminPasswordInput" placeholder="Senha..."
+                class="glass-input w-full px-4 py-2.5 rounded-xl text-sm mb-4 text-center">
+            <div class="flex gap-2">
+                <button id="confirmAdminAuthBtn"
+                    class="btn-gold flex-1 py-2.5 rounded-xl font-bold text-xs uppercase">Entrar</button>
+                <button id="cancelAdminAuthBtn"
+                    class="py-2.5 px-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs text-gray-300">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+        <div class="glass-card p-6 rounded-2xl max-w-xs w-full text-center border-emerald-500/40">
+            <div
+                class="w-12 h-12 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center mx-auto mb-3 text-emerald-400">
+                ✓</div>
+            <h3 class="text-lg font-bold text-white mb-1">Pergunta Enviada!</h3>
+            <p class="text-xs text-gray-300 mb-5">Sua dúvida foi registrada com sucesso e encaminhada aos palestrantes.
+            </p>
+            <button id="closeSuccessBtn"
+                class="btn-gold w-full py-2.5 rounded-xl font-bold text-xs uppercase">Concluído</button>
+        </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>

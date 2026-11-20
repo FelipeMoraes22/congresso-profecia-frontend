@@ -1,0 +1,101 @@
+:root {
+    --bg-deep: #0e0603;
+    --orange-warm: #d97d36;
+    --copper-glow: #e88a3c;
+    --gold-light: #f3d4a6;
+    --gold-script: #f4dbb2;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-deep);
+    background-image:
+        radial-gradient(circle at 50% 18%, rgba(217, 125, 54, 0.45) 0%, rgba(110, 42, 14, 0.5) 28%, rgba(18, 8, 4, 0.95) 70%, #060201 100%),
+        radial-gradient(circle at 80% 75%, rgba(180, 85, 20, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 20% 60%, rgba(243, 212, 166, 0.08) 0%, transparent 40%);
+    background-attachment: fixed;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.font-script {
+    font-family: 'Playball', cursive;
+}
+
+.glass-card {
+    background: rgba(22, 10, 5, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(217, 125, 54, 0.28);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.glass-input {
+    background: rgba(10, 4, 2, 0.6);
+    border: 1px solid rgba(217, 125, 54, 0.35);
+    color: #ffffff;
+    transition: all 0.25s ease-in-out;
+}
+
+.glass-input:focus {
+    outline: none;
+    border-color: var(--orange-warm);
+    box-shadow: 0 0 15px rgba(217, 125, 54, 0.45);
+    background: rgba(15, 6, 3, 0.85);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, #e88a3c 0%, #b85418 100%);
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(184, 84, 24, 0.4);
+}
+
+.btn-gold:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(232, 138, 60, 0.6);
+    background: linear-gradient(135deg, #f09648 0%, #c95d1b 100%);
+}
+
+.btn-gold:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.text-glow-gold {
+    text-shadow: 0 0 20px rgba(244, 219, 178, 0.4), 0 0 5px rgba(217, 125, 54, 0.6);
+}
+
+.text-glow-white {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+.animate-star-glow {
+    animation: pulseGlow 4s infinite ease-in-out;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0c0503;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d97d36;
+    border-radius: 4px;
+}
